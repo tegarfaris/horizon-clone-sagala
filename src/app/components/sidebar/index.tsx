@@ -71,7 +71,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         h="125px"
         w={shrink ? "45px" : undefined}
       >
-        <Text textAlign="center" fontSize="25px" mb="20px" ml="20px">
+        <Text textAlign="center" fontSize="24px" mb="20px" ml="20px">
           <Text as="span" fontWeight={800}>
             HORIZON
           </Text>{" "}

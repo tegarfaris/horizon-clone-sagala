@@ -7,7 +7,7 @@ import React, { ReactNode } from "react";
 const DashboardLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [shrink, setShrink] = React.useState<boolean>(false);
   return (
-    <Flex inset={0} justifyContent="space-between">
+    <Flex w="full" justifyContent="space-between">
       <Sidebar
         shrink={shrink}
         setShrink={setShrink}
@@ -21,15 +21,21 @@ const DashboardLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
         id="top"
         transition="all ease-in 0.25s"
       >
-        <Flex flexDir="column" minH="100%" pb={{ base: "50px", md: "0" }}>
-          <Topbar />
+        <Flex
+          w="full"
+          flexDir="column"
+          minH="100%"
+          pb={{ base: "50px", md: "0" }}
+        >
+          <Topbar shrink={shrink} />
           <Flex
-            mt="100px"
+            mt={{ base: "170px", lg: "100px" }}
             flexDir="column"
-            w="100%"
+            alignItems="center"
+            w="full"
             minH="100%"
-            overflowY="hidden"
-            p={{ base: "20px", md: "24px" }}
+            overflowX="hidden"
+            pl={{ base: "20px", md: "24px" }}
             flexGrow="1"
           >
             {children}
