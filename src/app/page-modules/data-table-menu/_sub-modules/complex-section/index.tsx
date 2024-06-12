@@ -7,12 +7,15 @@ import BasicTable, {
   ITableColumns,
 } from "@horizon-sagala/app/components/basic-table";
 import { IComplex } from "@horizon-sagala/app/interface/complex.interface";
-import DATA_COMPLEX from "@horizon-sagala/app/data/data-dummy-complex.json";
+
 import { renderStatus } from "@horizon-sagala/app/helper/render-status.helper";
 import TableTitle from "../../_components/table-title";
 import { calculateProgress } from "@horizon-sagala/app/helper/calculate-progress.helper";
 
-const ComplexSection: React.FC = () => {
+const ComplexSection: React.FC<{ datas: IComplex[]; loading: boolean }> = ({
+  datas,
+  loading,
+}) => {
   const column: ITableColumns[] = [
     {
       key: "name",
@@ -65,30 +68,15 @@ const ComplexSection: React.FC = () => {
     },
   ];
   return (
-    <Flex
-      flexDir="column"
-      bg="white"
-      h="full"
-      w="full"
-      alignItems="center"
-      borderRadius="20px"
-      p="20px"
-      flexGrow={1}
-    >
-      <TableTitle
-        title="Complex Table"
-        menuTitle={[
-          { title: "Add Data", icon: <FaPlus /> },
-          { title: "Delete Data", icon: <BsTrash2Fill /> },
-        ]}
-      />
+    <TableWithHeader title="Complex Table">
       <BasicTable
         width="full"
         variant="unstyled"
         columns={column}
-        datas={DATA_COMPLEX}
+        datas={datas}
+        loadingState={loading}
       />
-    </Flex>
+    </TableWithHeader>
   );
 };
 

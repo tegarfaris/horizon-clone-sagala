@@ -8,10 +8,12 @@ import BasicTable, {
 } from "@horizon-sagala/app/components/basic-table";
 import { ICheckTable } from "@horizon-sagala/app/interface/check-table.interface";
 
-import DATA_CHECK from "@horizon-sagala/app/data/data-dummy-check.json";
 import { calculateProgress } from "@horizon-sagala/app/helper/calculate-progress.helper";
 
-const CheckSection: React.FC = () => {
+const CheckSection: React.FC<{ datas: ICheckTable[]; loading: boolean }> = ({
+  datas,
+  loading,
+}) => {
   const column: ITableColumns[] = [
     {
       key: "name",
@@ -60,18 +62,13 @@ const CheckSection: React.FC = () => {
     },
   ];
   return (
-    <TableWithHeader
-      title="Check Table"
-      menuTitle={[
-        { title: "Add Data", icon: <FaPlus /> },
-        { title: "Delete Data", icon: <BsTrash2Fill /> },
-      ]}
-    >
+    <TableWithHeader title="Check Table">
       <BasicTable
         width="100%"
         variant="unstyled"
         columns={column}
-        datas={DATA_CHECK}
+        datas={datas}
+        loadingState={loading}
       />
     </TableWithHeader>
   );

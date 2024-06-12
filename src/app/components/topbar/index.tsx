@@ -1,5 +1,5 @@
-import { Avatar, Flex, Text } from "@chakra-ui/react";
-import React from "react";
+import { Avatar, Flex, Input, Text } from "@chakra-ui/react";
+import React, { useContext } from "react";
 import InputField from "../input-field";
 import { SlMagnifier } from "react-icons/sl";
 import {
@@ -8,6 +8,11 @@ import {
 } from "react-icons/io";
 import { MdColorLens } from "react-icons/md";
 import { COLORS } from "../../../../themes/theme";
+import {
+  IRootContext,
+  ProviderContext,
+} from "@horizon-sagala/app/context/global.context";
+import { useSearch } from "@horizon-sagala/app/context/searchContext";
 
 const DATA_TOPBAR = [
   { icon: <IoMdNotificationsOutline size={20} color={COLORS.GREY} /> },
@@ -15,6 +20,8 @@ const DATA_TOPBAR = [
   { icon: <MdColorLens size={20} color={COLORS.GREY} /> },
 ];
 const Topbar: React.FC<{ shrink: boolean }> = ({ shrink }) => {
+  const { searchValue, setSearchValue } = useSearch();
+
   return (
     <Flex w="full" pos="fixed" top={0} right={0} p="20px" zIndex={99}>
       <Flex
@@ -52,7 +59,10 @@ const Topbar: React.FC<{ shrink: boolean }> = ({ shrink }) => {
               type="text"
               placeholder="Search..."
               leftElement={<SlMagnifier />}
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.currentTarget.value)}
             />
+
             {DATA_TOPBAR.map((data) => (
               <Flex>{data.icon}</Flex>
             ))}

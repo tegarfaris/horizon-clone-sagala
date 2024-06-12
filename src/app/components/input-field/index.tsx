@@ -73,6 +73,7 @@ const InputField: React.FC<InputFieldProps> = (props) => {
           type={props.type}
           isDisabled={props.isDisabled}
           pl={props.pl}
+          onChange={props.onChange}
         />
         {props.rightElement && (
           <InputRightElement mr="58.82px">

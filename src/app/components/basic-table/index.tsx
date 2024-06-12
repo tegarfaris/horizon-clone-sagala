@@ -86,7 +86,7 @@ const BasicTable: React.FC<BasicTableProps> = ({
       overflowX="auto"
     >
       <Table variant={variant} size={size}>
-        {datas.length === 0 && !loadingState && noRecordData(columns)}
+        {datas?.length === 0 && !loadingState && noRecordData(columns)}
         <Thead
           borderBottom="1px solid"
           h="50px"
@@ -115,8 +115,16 @@ const BasicTable: React.FC<BasicTableProps> = ({
         <Tbody>
           {typeof loadingState !== "undefined" && loadingState ? (
             <Tr>
-              <Td colSpan={columns.length} textAlign="center">
-                <Spinner thickness="4px" speed="0.65s" size="lg" />
+              <Td pt="25%" colSpan={columns.length} textAlign="center">
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  size="lg"
+                  color={COLORS.PURPLE}
+                />
+                <Text fontFamily="dm_sans" pt="10px" color={COLORS.PURPLE}>
+                  Please wait ...
+                </Text>
               </Td>
             </Tr>
           ) : (

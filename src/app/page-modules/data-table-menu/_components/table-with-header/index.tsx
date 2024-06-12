@@ -1,21 +1,18 @@
 import { Flex } from "@chakra-ui/react";
 import React from "react";
 import TableTitle from "../table-title";
-
-interface menuItems {
-  title: string;
-  icon: React.ReactElement;
-}
 export interface TableWithHeaderProps {
   title: string;
-  menuTitle: menuItems[];
   children: React.ReactNode;
+  addData?: () => void;
+  deleteData?: () => void;
 }
 
 const TableWithHeader: React.FC<TableWithHeaderProps> = ({
   title,
-  menuTitle,
   children,
+  addData,
+  deleteData,
 }) => {
   return (
     <Flex
@@ -27,7 +24,11 @@ const TableWithHeader: React.FC<TableWithHeaderProps> = ({
       borderRadius="20px"
       p="20px"
     >
-      <TableTitle title={title} menuTitle={menuTitle} />
+      <TableTitle
+        title={title}
+        addData={addData as () => void}
+        deleteData={deleteData as () => void}
+      />
       <Flex w="full" pt="10px">
         {children}
       </Flex>

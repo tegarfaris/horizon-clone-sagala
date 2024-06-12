@@ -6,11 +6,14 @@ import { Flex, Text } from "@chakra-ui/react";
 import BasicTable, {
   ITableColumns,
 } from "@horizon-sagala/app/components/basic-table";
-import DATA_FOURTH from "@horizon-sagala/app/data/data-dummy-fourth.json";
+
 import { IFourth } from "@horizon-sagala/app/interface/fourth-table.interface";
 import { calculateProgress } from "@horizon-sagala/app/helper/calculate-progress.helper";
 
-const FourthColumnSection: React.FC = () => {
+const FourthColumnSection: React.FC<{ datas: IFourth[]; loading: boolean }> = ({
+  datas,
+  loading,
+}) => {
   const column: ITableColumns[] = [
     {
       key: "name",
@@ -58,18 +61,13 @@ const FourthColumnSection: React.FC = () => {
     },
   ];
   return (
-    <TableWithHeader
-      title="4-Column Table"
-      menuTitle={[
-        { title: "Add Data", icon: <FaPlus /> },
-        { title: "Delete Data", icon: <BsTrash2Fill /> },
-      ]}
-    >
+    <TableWithHeader title="4-Column Table">
       <BasicTable
         variant="unstyled"
         width="100%"
         columns={column}
-        datas={DATA_FOURTH}
+        datas={datas}
+        loadingState={loading}
       />
     </TableWithHeader>
   );

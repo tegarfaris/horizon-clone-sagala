@@ -4,6 +4,7 @@ import DashboardLayout from "@horizon-sagala/app/layout/dashboard-layout";
 import "@horizon-sagala/styles/globals.css";
 import { DM_Sans } from "next/font/google";
 import { COLORS } from "../../themes/theme";
+import { SearchProvider } from "@horizon-sagala/app/context/searchContext";
 
 const dm_sans = DM_Sans({
   subsets: ["latin"],
@@ -32,13 +33,15 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   return getLayout(
     <ChakraProvider theme={theme}>
-      {Component.getLayout ? (
-        <Component {...pageProps} />
-      ) : (
-        <DashboardLayout>
+      <SearchProvider>
+        {Component.getLayout ? (
           <Component {...pageProps} />
-        </DashboardLayout>
-      )}
+        ) : (
+          <DashboardLayout>
+            <Component {...pageProps} />
+          </DashboardLayout>
+        )}
+      </SearchProvider>
     </ChakraProvider>
   );
 }

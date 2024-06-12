@@ -10,16 +10,18 @@ import {
 import React from "react";
 import { COLORS } from "../../../../../../themes/theme";
 import { HiDotsHorizontal } from "react-icons/hi";
+import InputField from "@horizon-sagala/app/components/input-field";
 
-interface menuItems {
-  title: string;
-  icon: React.ReactElement;
-}
 export interface TableTitleProps {
   title: string;
-  menuTitle: menuItems[];
+  addData: () => void;
+  deleteData: () => void;
 }
-const TableTitle: React.FC<TableTitleProps> = ({ title, menuTitle }) => {
+const TableTitle: React.FC<TableTitleProps> = ({
+  title,
+  addData,
+  deleteData,
+}) => {
   return (
     <Flex w="full" justifyContent="space-between" alignItems="center" px="10px">
       <Text fontFamily="dm_sans" fontSize="22px" fontWeight={700}>
@@ -38,16 +40,20 @@ const TableTitle: React.FC<TableTitleProps> = ({ title, menuTitle }) => {
           zIndex={0}
         />
         <MenuList zIndex={0}>
-          {menuTitle.map((menu, idx) => (
-            <MenuItem
-              key={idx}
-              icon={menu.icon}
-              color={COLORS.GREY}
-              _hover={{ color: "black" }}
-            >
-              {menu.title}
-            </MenuItem>
-          ))}
+          <MenuItem
+            color={COLORS.GREY}
+            _hover={{ color: "black" }}
+            onClick={addData}
+          >
+            Add Data
+          </MenuItem>
+          <MenuItem
+            color={COLORS.GREY}
+            _hover={{ color: "black" }}
+            onClick={deleteData}
+          >
+            Delete Data
+          </MenuItem>
         </MenuList>
       </Menu>
     </Flex>
