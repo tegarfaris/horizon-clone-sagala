@@ -79,7 +79,6 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
               name="name"
               value={name}
               onChange={handleInputChange}
-              isRequired
             />
           </FormControl>
           <FormControl mt={4}>
@@ -91,7 +90,6 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
                   colorScheme="purple"
                   value={tech}
                   px="10px"
-                  isRequired
                 >
                   {tech}
                 </Checkbox>
@@ -105,7 +103,6 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
               name="date"
               value={date}
               onChange={handleInputChange}
-              isRequired
             />
           </FormControl>
         </ModalBody>
@@ -122,7 +119,12 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
           >
             Submit
           </Button>
-          <Button variant="ghost" color={COLORS.RED} onClick={onClose}>
+          <Button
+            type="button"
+            variant="ghost"
+            color={COLORS.RED}
+            onClick={() => onClose()}
+          >
             Cancel
           </Button>
         </ModalFooter>

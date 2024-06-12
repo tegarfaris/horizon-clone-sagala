@@ -71,12 +71,36 @@ const Sidebar: React.FC<SidebarProps> = ({
         h="125px"
         w={shrink ? "45px" : undefined}
       >
-        <Text textAlign="center" fontSize="24px" mb="20px" ml="20px">
+        <Text
+          display={{
+            base: shrink ? "none" : "flex",
+            xl: shrink ? "flex" : "none",
+          }}
+          textAlign="center"
+          fontFamily="dm_sans"
+          fontSize="24px"
+          fontWeight={700}
+          ml="10px"
+        >
+          H
+        </Text>
+
+        <Text
+          display={{
+            base: shrink ? "flex" : "none",
+            xl: shrink ? "none" : "flex",
+          }}
+          textAlign="center"
+          fontSize="24px"
+          mb="20px"
+          ml="20px"
+        >
           <Text as="span" fontWeight={800}>
             HORIZON
           </Text>{" "}
           FREE
         </Text>
+
         <Divider borderColor={COLORS.GREY} w="full" pr="20px" />
       </Flex>
       <Flex flexDir="column" gap="5px" pl="10px" position="relative">
@@ -85,7 +109,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             <Flex
               key={menu.id}
               onClick={() => {
-                router.push(`/dashboard/${menu.path}`);
+                router.push(`/${menu.path}`);
               }}
               {...menuItemContainer}
               position="relative"
@@ -99,30 +123,24 @@ const Sidebar: React.FC<SidebarProps> = ({
               }}
               transitionProperty="transition, opacity, left"
               alignItems="center"
-              fontWeight={isActive(menu.path as unknown as string) ? 600 : 400}
+              fontWeight={isActive(menu.path as string) ? 600 : 400}
               fontSize="15px"
+              mr={{
+                base: shrink ? "30px" : undefined,
+                lg: shrink ? undefined : "30px",
+              }}
             >
               <Text
                 position="absolute"
                 left={shrink ? "10px" : "20px"}
-                color={
-                  isActive(menu.path as unknown as string)
-                    ? "#000"
-                    : COLORS.GREY
-                }
+                color={isActive(menu.path as string) ? "#000" : COLORS.GREY}
               >
-                {isActive(menu.path as unknown as string)
-                  ? menu.iconActive
-                  : menu.icon}
+                {isActive(menu.path as string) ? menu.iconActive : menu.icon}
               </Text>
               <Text
                 {...menuItemText}
                 position="absolute"
-                color={
-                  isActive(menu.path as unknown as string)
-                    ? "#000"
-                    : COLORS.GREY
-                }
+                color={isActive(menu.path as string) ? "#000" : COLORS.GREY}
                 left={{
                   base: shrink ? "50px" : "20px",
                   xl: shrink ? "20px" : "60px",
@@ -140,9 +158,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               </Text>
               <Box
                 pos="absolute"
-                display={
-                  isActive(menu.path as unknown as string) ? "block" : "none"
-                }
+                display={isActive(menu.path as string) ? "block" : "none"}
                 right={0}
                 rounded="10px"
                 h="30px"
@@ -153,7 +169,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           );
         })}
 
-        <CardUpgradePro />
+        <CardUpgradePro shrink={shrink} />
         <Flex
           bg="white"
           justifyContent="center"
@@ -166,7 +182,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           borderColor={COLORS.PURPLE}
           position="absolute"
           right="-35px"
-          bottom="-50px"
+          top="-50px"
           cursor="pointer"
           shadow="md"
           onClick={() => setShrink(!shrink)}

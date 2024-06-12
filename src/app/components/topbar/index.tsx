@@ -1,5 +1,5 @@
-import { Avatar, Flex, Input, Text } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import { Avatar, Flex, Text } from "@chakra-ui/react";
+import React from "react";
 import InputField from "../input-field";
 import { SlMagnifier } from "react-icons/sl";
 import {
@@ -8,11 +8,9 @@ import {
 } from "react-icons/io";
 import { MdColorLens } from "react-icons/md";
 import { COLORS } from "../../../../themes/theme";
-import {
-  IRootContext,
-  ProviderContext,
-} from "@horizon-sagala/app/context/global.context";
 import { useSearch } from "@horizon-sagala/app/context/searchContext";
+import { useRouter } from "next/router";
+import { startCase } from "lodash";
 
 const DATA_TOPBAR = [
   { icon: <IoMdNotificationsOutline size={20} color={COLORS.GREY} /> },
@@ -20,7 +18,10 @@ const DATA_TOPBAR = [
   { icon: <MdColorLens size={20} color={COLORS.GREY} /> },
 ];
 const Topbar: React.FC<{ shrink: boolean }> = ({ shrink }) => {
+  const router = useRouter();
   const { searchValue, setSearchValue } = useSearch();
+
+  const activeMenu = startCase(router.query.menu?.toString().replace("-", " "));
 
   return (
     <Flex w="full" pos="fixed" top={0} right={0} p="20px" zIndex={99}>
@@ -36,9 +37,9 @@ const Topbar: React.FC<{ shrink: boolean }> = ({ shrink }) => {
         style={{ backdropFilter: "blur(15px)" }}
       >
         <Flex flexDir="column">
-          <Text>Pages / Data Tables</Text>
+          <Text>Pages / {activeMenu}</Text>
           <Text fontSize="40px" mt="-10px" fontWeight={700}>
-            Data Tables
+            {activeMenu}
           </Text>
         </Flex>
 

@@ -1,10 +1,11 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
-const CardUpgradePro: React.FC = () => {
+const CardUpgradePro: React.FC<{ shrink: boolean }> = ({ shrink }) => {
   return (
     <Flex
       pos="relative"
+      display={{ base: shrink ? "flex" : "none", lg: shrink ? "none" : "flex" }}
       flexDir="column"
       justifyContent="center"
       alignItems="center"

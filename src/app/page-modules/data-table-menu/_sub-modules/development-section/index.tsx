@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
+import React, { Dispatch, SetStateAction, useContext, useState } from "react";
 import TableWithHeader from "../../_components/table-with-header";
 import { Flex, Progress, Text, useDisclosure } from "@chakra-ui/react";
 import BasicTable, {
@@ -12,11 +12,13 @@ import { renderIcon } from "@horizon-sagala/app/helper/render-icon.helper";
 import { calculateProgress } from "@horizon-sagala/app/helper/calculate-progress.helper";
 import dayjs from "dayjs";
 import DevelopmentFormModal from "../../_components/development-form-modal";
+import { useSearch } from "@horizon-sagala/app/context/searchContext";
 
 const DevelopmentSection: React.FC<{
   datas: IDevelopmentTable[];
   loading: boolean;
 }> = ({ datas, loading }) => {
+  const { searchValue } = useSearch();
   const [filtered, setFiltered] = useState(datas);
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
@@ -95,6 +97,7 @@ const DevelopmentSection: React.FC<{
       date: "",
       progress: randomValue,
     });
+    onClose();
   };
   const handleDelete = () => {
     const newDatas = filtered.filter(
@@ -115,7 +118,7 @@ const DevelopmentSection: React.FC<{
           width="full"
           variant="unstyled"
           columns={column}
-          datas={filtered}
+          datas={searchValue ? datas : filtered}
           loadingState={loading}
         />
       </TableWithHeader>

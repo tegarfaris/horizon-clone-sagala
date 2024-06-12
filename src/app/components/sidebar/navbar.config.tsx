@@ -1,6 +1,5 @@
-import { DashboardMenu } from "@horizon-sagala/app/config/navigation";
 import { FaUserLarge } from "react-icons/fa6";
-import { IoMdHome, IoMdList, IoMdListBox, IoMdLock } from "react-icons/io";
+import { IoMdHome, IoMdLock } from "react-icons/io";
 import { MdOutlineBarChart, MdOutlineShoppingCart } from "react-icons/md";
 import { COLORS } from "../../../../themes/theme";
 
@@ -15,7 +14,7 @@ export interface IChildItems {
 export interface INavbarItem {
   id: number;
   label: string;
-  path: () => `/${DashboardMenu}` | "/";
+  path: string;
   icon: React.ReactNode;
   iconActive: React.ReactNode;
 }
@@ -24,42 +23,42 @@ export const navbarItem: INavbarItem[] = [
   {
     id: 0,
     label: "Main Dashboard",
-    path: () => "/",
+    path: "/dashboard/main-dashboard",
     icon: <IoMdHome size={20} />,
     iconActive: <IoMdHome size={20} color={COLORS.PURPLE} />,
   },
   {
     id: 1,
     label: "NFT Marketplace",
-    path: () => "/master-data",
+    path: "/dashboard/nft-marketplace",
     icon: <MdOutlineShoppingCart size={20} />,
     iconActive: <MdOutlineShoppingCart size={20} color={COLORS.PURPLE} />,
   },
   {
     id: 2,
     label: "Data Tables",
-    path: () => "/master-data",
+    path: "/dashboard/data-table",
     icon: <MdOutlineBarChart size={20} />,
     iconActive: <MdOutlineBarChart size={20} color={COLORS.PURPLE} />,
   },
   {
     id: 3,
     label: "Profile",
-    path: () => "/master-data",
+    path: "/dashboard/profile",
     icon: <FaUserLarge size={15} />,
     iconActive: <FaUserLarge size={15} color={COLORS.PURPLE} />,
   },
   {
     id: 4,
     label: "Sign In",
-    path: () => "/master-data",
+    path: "/dashboard/sign-in",
     icon: <IoMdLock size={20} />,
     iconActive: <IoMdLock size={20} color={COLORS.PURPLE} />,
   },
   {
     id: 5,
     label: "RTL Admin",
-    path: () => "/master-data",
+    path: "/dashboard/rtl-admin",
     icon: <IoMdHome size={20} />,
     iconActive: <IoMdHome size={20} color={COLORS.PURPLE} />,
   },
