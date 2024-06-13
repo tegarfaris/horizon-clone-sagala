@@ -1,8 +1,10 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import Sidebar from "@horizon-sagala/app/components/sidebar";
 import { navbarItem } from "@horizon-sagala/app/components/sidebar/navbar.config";
 import Topbar from "@horizon-sagala/app/components/topbar";
 import React, { ReactNode } from "react";
+import { COLORS } from "../../../../themes/theme";
+import Footer from "@horizon-sagala/app/components/footer";
 
 const DashboardLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [shrink, setShrink] = React.useState<boolean>(false);
@@ -40,6 +42,7 @@ const DashboardLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
           >
             {children}
           </Flex>
+          <Footer />
         </Flex>
       </Box>
     </Flex>

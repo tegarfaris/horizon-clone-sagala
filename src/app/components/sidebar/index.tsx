@@ -80,7 +80,8 @@ const Sidebar: React.FC<SidebarProps> = ({
           fontFamily="dm_sans"
           fontSize="24px"
           fontWeight={700}
-          ml="10px"
+          mb="20px"
+          ml="20px"
         >
           H
         </Text>
@@ -93,7 +94,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           textAlign="center"
           fontSize="24px"
           mb="20px"
-          ml="20px"
+          ml="50px"
         >
           <Text as="span" fontWeight={800}>
             HORIZON
@@ -182,7 +183,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           borderColor={COLORS.PURPLE}
           position="absolute"
           right="-35px"
-          top="-50px"
+          top="-55px"
           cursor="pointer"
           shadow="md"
           onClick={() => setShrink(!shrink)}
