@@ -1,5 +1,3 @@
-import { extendTheme } from "@chakra-ui/react";
-
 export enum COLORS {
   PURPLE = "#412AFB",
   PURPLE_SLATE = "#F0F3FB",

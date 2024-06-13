@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Flex, Grid, GridItem } from "@chakra-ui/react";
+import { Grid, GridItem } from "@chakra-ui/react";
 import DevelopmentSection from "./_sub-modules/development-section";
 import CheckSection from "./_sub-modules/check-section";
 import FourthColumnSection from "./_sub-modules/fourth-column-section";
 import ComplexSection from "./_sub-modules/complex-section";
 
-import { useSearch } from "@horizon-sagala/app/context/searchContext";
-import { IDevelopmentTable } from "@horizon-sagala/app/interface/development.interface";
 import { IComplex } from "@horizon-sagala/app/interface/complex.interface";
 import { IFourth } from "@horizon-sagala/app/interface/fourth-table.interface";
 import { ICheckTable } from "@horizon-sagala/app/interface/check-table.interface";
@@ -39,7 +37,7 @@ const DataTableMain: React.FC = () => {
     return () => {
       clearTimeout(timeOut);
     };
-  }, [getDevelopmentList, refetch]);
+  }, [getCheckList, getComplexList, getDevelopmentList, getFourthList, refetch]);
 
   return (
     <Grid

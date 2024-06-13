@@ -7,7 +7,6 @@ import Splash from "@horizon-sagala/app/components/splash";
 const Dashboard: NextPageWithLayout = () => {
   const router = useRouter();
 
-  // logic for show splash and then go to login or dashboard here
   React.useEffect(() => {
     setTimeout(() => {
       if (router.asPath === "/") {

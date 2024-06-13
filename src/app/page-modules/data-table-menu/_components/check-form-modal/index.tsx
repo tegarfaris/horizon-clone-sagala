@@ -1,7 +1,5 @@
 import {
   Button,
-  Checkbox,
-  CheckboxGroup,
   FormControl,
   FormLabel,
   Input,
@@ -15,49 +13,33 @@ import {
 } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction } from "react";
 import { COLORS } from "../../../../../../themes/theme";
-import { ETech } from "@horizon-sagala/app/interface/development.interface";
 
-interface DevelopmentFormModalProps {
+interface CheckFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  name: string;
-  tech: ETech[];
-  date: string;
   formData: {
     name: "";
-    tech: [];
-    date: "";
     progress: number;
+    quantity: string;
+    date: "";
   };
   setFormData: Dispatch<
     SetStateAction<{
       name: "";
-      tech: ETech[];
-      date: "";
       progress: number;
+      quantity: string;
+      date: "";
     }>
   >;
   handleSubmit: () => void;
 }
-const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
+const CheckFormModal: React.FC<CheckFormModalProps> = ({
   isOpen,
   onClose,
-  name,
-  tech,
-  date,
   formData,
   setFormData,
   handleSubmit,
 }) => {
-  const techOptions: ETech[] = ["windows", "android", "mac-os"] as ETech[];
-
-  const handleTechChange = (selectedTech: ETech[]) => {
-    setFormData({
-      ...formData,
-      tech: selectedTech,
-    });
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -69,7 +51,7 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Development Item</ModalHeader>
+        <ModalHeader>Add New Check Table Item</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormControl>
@@ -78,31 +60,28 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
               type="text"
               name="name"
               placeholder="Input Name"
-              value={name}
+              value={formData?.name}
               onChange={handleInputChange}
             />
           </FormControl>
+
           <FormControl mt={4}>
-            <FormLabel>Tech</FormLabel>
-            <CheckboxGroup value={tech} onChange={handleTechChange}>
-              {techOptions.map((tech) => (
-                <Checkbox
-                  key={tech}
-                  colorScheme="purple"
-                  value={tech}
-                  px="10px"
-                >
-                  {tech}
-                </Checkbox>
-              ))}
-            </CheckboxGroup>
+            <FormLabel>Quantity</FormLabel>
+            <Input
+              type="text"
+              name="quantity"
+              placeholder="Input Quantity"
+              value={formData?.quantity}
+              onChange={handleInputChange}
+            />
           </FormControl>
+
           <FormControl mt={4}>
             <FormLabel>Date</FormLabel>
             <Input
               type="date"
               name="date"
-              value={date}
+              value={formData?.date}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -134,4 +113,4 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
   );
 };
 
-export default DevelopmentFormModal;
+export default CheckFormModal;

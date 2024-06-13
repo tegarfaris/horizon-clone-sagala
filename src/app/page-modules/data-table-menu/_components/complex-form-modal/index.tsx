@@ -1,7 +1,5 @@
 import {
   Button,
-  Checkbox,
-  CheckboxGroup,
   FormControl,
   FormLabel,
   Input,
@@ -12,64 +10,44 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  Select,
 } from "@chakra-ui/react";
 import React, { Dispatch, SetStateAction } from "react";
 import { COLORS } from "../../../../../../themes/theme";
-import { ETech } from "@horizon-sagala/app/interface/development.interface";
+import { IComplex } from "@horizon-sagala/app/interface/complex.interface";
 
-interface DevelopmentFormModalProps {
+interface ComplexFormModalProps {
   isOpen: boolean;
   onClose: () => void;
-  name: string;
-  tech: ETech[];
-  date: string;
-  formData: {
-    name: "";
-    tech: [];
-    date: "";
-    progress: number;
-  };
-  setFormData: Dispatch<
-    SetStateAction<{
-      name: "";
-      tech: ETech[];
-      date: "";
-      progress: number;
-    }>
-  >;
+  formData: IComplex;
+  setFormData: Dispatch<SetStateAction<IComplex>>;
   handleSubmit: () => void;
 }
-const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
+
+const ComplexFormModal: React.FC<ComplexFormModalProps> = ({
   isOpen,
   onClose,
-  name,
-  tech,
-  date,
   formData,
   setFormData,
   handleSubmit,
 }) => {
-  const techOptions: ETech[] = ["windows", "android", "mac-os"] as ETech[];
-
-  const handleTechChange = (selectedTech: ETech[]) => {
-    setFormData({
-      ...formData,
-      tech: selectedTech,
-    });
-  };
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: name === "progress" ? Number(value) : value,
     });
   };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Development Item</ModalHeader>
+        <ModalHeader>Add New Complex Table Item</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <FormControl>
@@ -78,31 +56,30 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
               type="text"
               name="name"
               placeholder="Input Name"
-              value={name}
+              value={formData.name}
               onChange={handleInputChange}
             />
           </FormControl>
+
           <FormControl mt={4}>
-            <FormLabel>Tech</FormLabel>
-            <CheckboxGroup value={tech} onChange={handleTechChange}>
-              {techOptions.map((tech) => (
-                <Checkbox
-                  key={tech}
-                  colorScheme="purple"
-                  value={tech}
-                  px="10px"
-                >
-                  {tech}
-                </Checkbox>
-              ))}
-            </CheckboxGroup>
+            <FormLabel>Status</FormLabel>
+            <Select
+              name="status"
+              value={formData.status}
+              onChange={handleInputChange}
+            >
+              <option value="approved">Approved</option>
+              <option value="error">Error</option>
+              <option value="disable">Disable</option>
+            </Select>
           </FormControl>
+
           <FormControl mt={4}>
             <FormLabel>Date</FormLabel>
             <Input
               type="date"
               name="date"
-              value={date}
+              value={formData.date}
               onChange={handleInputChange}
             />
           </FormControl>
@@ -124,7 +101,7 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
             type="button"
             variant="ghost"
             color={COLORS.RED}
-            onClick={() => onClose()}
+            onClick={onClose}
           >
             Cancel
           </Button>
@@ -134,4 +111,4 @@ const DevelopmentFormModal: React.FC<DevelopmentFormModalProps> = ({
   );
 };
 
-export default DevelopmentFormModal;
+export default ComplexFormModal;

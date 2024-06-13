@@ -10,7 +10,7 @@ import {
 import React from "react";
 import { COLORS } from "../../../../../../themes/theme";
 import { HiDotsHorizontal } from "react-icons/hi";
-import InputField from "@horizon-sagala/app/components/input-field";
+import { FaPlus, FaTrash } from "react-icons/fa6";
 
 export interface TableTitleProps {
   title: string;
@@ -44,13 +44,17 @@ const TableTitle: React.FC<TableTitleProps> = ({
             color={COLORS.GREY}
             _hover={{ color: "black" }}
             onClick={addData}
+            icon={<FaPlus />}
+            fontWeight={600}
           >
             Add Data
           </MenuItem>
           <MenuItem
             color={COLORS.GREY}
-            _hover={{ color: "black" }}
+            _hover={{ color: "red" }}
             onClick={deleteData}
+            icon={<FaTrash />}
+            fontWeight={600}
           >
             Delete Data
           </MenuItem>

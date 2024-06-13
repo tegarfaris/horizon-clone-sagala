@@ -5,7 +5,7 @@ export enum EStatus {
 }
 
 export interface IComplex {
-  id: string;
+  id: number;
   name: string;
   status: EStatus;
   date: string;

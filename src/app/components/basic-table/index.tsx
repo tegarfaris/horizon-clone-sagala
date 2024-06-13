@@ -11,9 +11,7 @@ import {
   Tr,
   Flex,
   SystemStyleObject,
-  Divider,
 } from "@chakra-ui/react";
-import Link from "next/link";
 import React from "react";
 import { COLORS } from "../../../../themes/theme";
 
@@ -22,12 +20,11 @@ export interface ITableColumns {
   title: string;
   width?: LayoutProps["width"];
   capitalize?: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  display?: string;
   render?: (data: any, index?: number) => void;
   renderHeaderProperty?: React.ReactNode;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DataTable = Record<string, any>;
 
 interface BasicTableProps {
@@ -57,14 +54,6 @@ const noRecordData = (columns: ITableColumns[]) => {
   );
 };
 
-const RowWithLink: React.FC<{
-  children: React.ReactNode;
-  dataId: number;
-  linkTo: string;
-}> = ({ linkTo, children, dataId }) => {
-  return <Link href={`${linkTo}/${dataId}`}>{children}</Link>;
-};
-
 const BasicTable: React.FC<BasicTableProps> = ({
   datas,
   columns,
@@ -73,7 +62,7 @@ const BasicTable: React.FC<BasicTableProps> = ({
   width = "full",
   loadingState,
   onHover,
-  linkTo,
+
   bgHeader,
   border,
   borderRadius,
@@ -102,6 +91,7 @@ const BasicTable: React.FC<BasicTableProps> = ({
                   key={column.key}
                   w={column.width || "fit-content"}
                   bg={bgHeader}
+                  display={column.display}
                 >
                   <Flex gap="10px" alignItems="center">
                     <Text>{column.title}</Text>
@@ -128,40 +118,19 @@ const BasicTable: React.FC<BasicTableProps> = ({
               </Td>
             </Tr>
           ) : (
-            datas.map((data, i: number) => (
+            datas?.map((data, i: number) => (
               <Tr key={i} _hover={onHover}>
                 {columns.map((column) => (
-                  <React.Fragment key={column.key}>
-                    {linkTo ? (
-                      <RowWithLink dataId={data.id} linkTo={linkTo}>
-                        <Td
-                          textTransform={
-                            column.capitalize ? "capitalize" : "none"
-                          }
-                          fontSize="14px"
-                          w={column.width || "fit-content"}
-                          gap="45px"
-                        >
-                          {column.render
-                            ? column.render(data, i)
-                            : data[column.key]}
-                        </Td>
-                      </RowWithLink>
-                    ) : (
-                      <Td
-                        textTransform={
-                          column.capitalize ? "capitalize" : "none"
-                        }
-                        fontSize="14px"
-                        w={column.width || "fit-content"}
-                        py="22px"
-                      >
-                        {column.render
-                          ? column.render(data, i)
-                          : data[column.key]}{" "}
-                      </Td>
-                    )}
-                  </React.Fragment>
+                  <Td
+                    key={column.key}
+                    textTransform={column.capitalize ? "capitalize" : "none"}
+                    fontSize="14px"
+                    w={column.width || "fit-content"}
+                    py="22px"
+                    display={column.display}
+                  >
+                    {column.render ? column.render(data, i) : data[column.key]}{" "}
+                  </Td>
                 ))}
               </Tr>
             ))

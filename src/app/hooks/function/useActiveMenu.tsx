@@ -9,13 +9,11 @@ const useActiveMenu = () => {
       const asPath = router?.asPath;
       const queryMenu = path as string;
 
-      console.log(queryMenu);
-
       if (asPath === queryMenu) {
         return true;
       }
     },
-    [router?.query.role, router?.asPath, router.query?.menu]
+    [router?.asPath]
   );
 
   return { isActive };

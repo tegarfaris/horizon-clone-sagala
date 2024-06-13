@@ -1,6 +1,13 @@
-import React, { Dispatch, SetStateAction, useContext, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import TableWithHeader from "../../_components/table-with-header";
-import { Flex, Progress, Text, useDisclosure } from "@chakra-ui/react";
+import {
+  Checkbox,
+  Flex,
+  Progress,
+  Text,
+  Button,
+  useDisclosure,
+} from "@chakra-ui/react";
 import BasicTable, {
   ITableColumns,
 } from "@horizon-sagala/app/components/basic-table";
@@ -21,6 +28,7 @@ const DevelopmentSection: React.FC<{
   const { searchValue } = useSearch();
   const [filtered, setFiltered] = useState(datas);
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const [isShowCheckbox, showCheckbox] = useState(false);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -29,7 +37,41 @@ const DevelopmentSection: React.FC<{
     progress: 0,
   });
 
+  const handleConfirmDelete = () => {
+    const newDatas = filtered.filter(
+      (item) => !selectedItems.includes(item.id)
+    );
+    setFiltered(newDatas);
+    setSelectedItems([]);
+    showCheckbox(false);
+  };
+
   const column: ITableColumns[] = [
+    {
+      key: "selectedItem",
+      title: "",
+      display: isShowCheckbox ? "flex" : "none",
+      render: (data: IDevelopmentTable) => {
+        return (
+          <Checkbox
+            isChecked={selectedItems.includes(data.id)}
+            onChange={() => handleSelectItem(data.id)}
+          />
+        );
+      },
+      renderHeaderProperty: (
+        <Flex mt="10px" ml="-15px">
+          <Button
+            w="full"
+            size="xs"
+            colorScheme="red"
+            onClick={handleConfirmDelete}
+          >
+            X
+          </Button>
+        </Flex>
+      ),
+    },
     {
       key: "name",
       title: "Name",
@@ -75,6 +117,12 @@ const DevelopmentSection: React.FC<{
     },
   ];
 
+  const handleSelectItem = (id: number) => {
+    setSelectedItems((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
+
   const handleSubmit = () => {
     const newItem = {
       id: datas.length + 1,
@@ -99,12 +147,12 @@ const DevelopmentSection: React.FC<{
     });
     onClose();
   };
-  const handleDelete = () => {
-    const newDatas = filtered.filter(
-      (item) => !selectedItems.includes(item.id)
-    );
-    setFiltered(newDatas);
-    setSelectedItems([]);
+
+  const toggleCheckboxes = () => {
+    showCheckbox(!isShowCheckbox);
+    if (isShowCheckbox) {
+      setSelectedItems([]);
+    }
   };
 
   return (
@@ -112,7 +160,7 @@ const DevelopmentSection: React.FC<{
       <TableWithHeader
         title="Development Table"
         addData={onOpen}
-        deleteData={() => handleDelete()}
+        deleteData={toggleCheckboxes}
       >
         <BasicTable
           width="full"
@@ -123,7 +171,6 @@ const DevelopmentSection: React.FC<{
         />
       </TableWithHeader>
 
-      {/* Modal untuk menambahkan data baru */}
       <DevelopmentFormModal
         isOpen={isOpen}
         onClose={onClose}
